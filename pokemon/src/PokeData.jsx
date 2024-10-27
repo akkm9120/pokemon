@@ -43,8 +43,11 @@ const PokeData = ({ searchTerm }) => {
                 style={{ width: "200px", height: "200px" }}
               />
             </td>
-            <th colSpan="2">
-              {pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}
+            <th
+              colSpan="2"
+              style={{ textAlign: "", textTransform: "capitalize" }}
+            >
+              {pokemon.name}
             </th>
           </tr>
           <tr>
