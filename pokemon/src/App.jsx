@@ -1,5 +1,3 @@
-import { useState } from "react";
-import PokeData from "./PokeData";
 import { Search } from "./components/Search";
 
 function App() {
