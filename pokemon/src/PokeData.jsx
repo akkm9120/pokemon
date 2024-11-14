@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./PokeData.css";
+import { Table } from "./pages/Table";
+import { Route, Routes, useNavigate } from "react-router-dom";
+
+
 
 const PokeData = ({ searchTerm }) => {
   const [pokemon, setPokemon] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPokemon = async () => {
@@ -20,6 +25,7 @@ const PokeData = ({ searchTerm }) => {
         console.log(response.data);
         setPokemon(response.data);
         setError(null);
+        navigate(`/pokemon/${searchTerm.toLowerCase()}`);
       } catch (err) {
         console.log("Pokemon not found");
         setError("Pokemon not found");
@@ -34,61 +40,10 @@ const PokeData = ({ searchTerm }) => {
   if (!pokemon) return <div className="loading-spinner"></div>;
 
   return (
-    <div className="pokemon-data">
-      <table>
-        <tbody>
-          <tr>
-            <td rowSpan="6">
-              <img
-                src={pokemon.sprites.front_default}
-                alt={pokemon.name}
-                loading="eager"
-                style={{ width: "200px", height: "200px" }}
-              />
-            </td>
-            <th
-              colSpan="2"
-              style={{ textAlign: "", textTransform: "capitalize" }}
-            >
-              {pokemon.name}
-            </th>
-          </tr>
-          <tr>
-            <td>Type:</td>
-            <td>
-              {pokemon.types.map((type, index) => (
-                <span key={index} className={`type ${type.type.name}`}>
-                  {type.type.name}
-                </span>
-              ))}
-            </td>
-          </tr>
-          <tr>
-            <td>Height:</td>
-            <td>{pokemon.height / 10} m</td>
-          </tr>
-          <tr>
-            <td>Weight:</td>
-            <td>{pokemon.weight / 10} kg</td>
-          </tr>
-          <tr>
-            <td>Base Experience:</td>
-            <td>{pokemon.base_experience}</td>
-          </tr>
-          <tr>
-            <td>Abilities:</td>
-            <td>
-              {pokemon.abilities.map((ability, index) => (
-                <span key={index}>
-                  {ability.ability.name}
-                  {index < pokemon.abilities.length - 1 ? ", " : ""}
-                </span>
-              ))}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <Routes>
+      <Route path="/" element={<Table pokemon={pokemon} />} />
+      <Route path={`/pokemon/${searchTerm.toLowerCase()}`} element={<Table pokemon={pokemon} />} />
+    </Routes>
   );
 };
 
