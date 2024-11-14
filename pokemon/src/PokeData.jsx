@@ -10,6 +10,9 @@ const PokeData = ({ searchTerm }) => {
     const fetchPokemon = async () => {
       if (!searchTerm) return;
 
+      setPokemon(null);
+      setError(null);
+
       try {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`
@@ -28,7 +31,7 @@ const PokeData = ({ searchTerm }) => {
   }, [searchTerm]);
 
   if (error) return <div className="error">{error}</div>;
-  if (!pokemon) return null;
+  if (!pokemon) return <div className="loading-spinner"></div>;
 
   return (
     <div className="pokemon-data">
