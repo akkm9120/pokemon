@@ -5,6 +5,7 @@ export const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [submittedSearch, setSubmittedSearch] = useState("");
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmittedSearch(searchTerm);
@@ -36,7 +37,7 @@ export const Search = () => {
           <option value="Eevee" />
         </datalist>{" "}
         <br />
-        <button type="submit">Search</button>
+        <button type="submit">Search for {searchTerm}</button>
       </form>
       <PokeData searchTerm={submittedSearch} />
     </>

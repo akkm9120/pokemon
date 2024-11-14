@@ -41,10 +41,8 @@ const PokeData = ({ searchTerm }) => {
 
   return (
     <Routes>
-      <Route path="/" element={<Table pokemon={pokemon} />} />
-      <Route path={`/pokemon/${searchTerm.toLowerCase()}`} element={<Table pokemon={pokemon} />} />
-    </Routes>
-  );
+      <Route path={`/pokemon/${searchTerm?.toLowerCase()}`} element={<Table pokemon={pokemon} />} />
+    </Routes>);
 };
 
 export default PokeData;
