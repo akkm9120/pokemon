@@ -20,7 +20,9 @@ const PokeData = ({ searchTerm }) => {
 
       try {
         const response = await axios.get(
-          `https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`
+          !isNaN(searchTerm)
+            ? `https://pokeapi.co/api/v2/pokemon?limit=${searchTerm}`
+            : `https://pokeapi.co/api/v2/pokemon/${searchTerm.toLowerCase()}`
         );
         console.log(response.data);
         setPokemon(response.data);
@@ -42,6 +44,7 @@ const PokeData = ({ searchTerm }) => {
   return (
     <Routes>
       <Route path={`/pokemon/${searchTerm?.toLowerCase()}`} element={<Table pokemon={pokemon} />} />
+      {/* <Route path={`/pokemon/${searchTerm}`} element={<List pokemon={pokemon} />} /> */}
     </Routes>);
 };
 
